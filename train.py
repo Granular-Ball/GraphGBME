@@ -769,14 +769,12 @@ def parse_args() -> argparse.Namespace:
         "--data",
         type=Path,
         default=None,
-        help="覆盖所选数据集的默认数据路径（.mat 或 .zip）",
     )
     parser.add_argument("--cache-dir", type=Path, default=Path(tempfile.gettempdir()) / "graphgbme")
     parser.add_argument(
         "--output-dir",
         type=Path,
         default=None,
-        help="覆盖默认输出目录 outputs/<dataset>",
     )
     parser.add_argument("--seed", type=int, default=44)
     parser.add_argument(
@@ -785,8 +783,8 @@ def parse_args() -> argparse.Namespace:
         help="少数类比例：(0,1) 或 original",
     )
     parser.add_argument("--quality-threshold", type=float, default=0.90)
-    parser.add_argument("--min-split-size", type=int, default=4, help="粒球分裂的最小节点数量",)
-    parser.add_argument("--min-ball-size", type=int, default=2, help="粒球原型的最小节点数量",)
+    parser.add_argument("--min-split-size", type=int, default=4, )
+    parser.add_argument("--min-ball-size", type=int, default=2,)
     parser._option_string_actions["--min-split-size"].help = (
         "Minimum parent-ball node count required to attempt a split"
     )
@@ -801,7 +799,7 @@ def parse_args() -> argparse.Namespace:
         ),
     )
     parser.add_argument("--prototype-layer-norm", action="store_true")
-    parser.add_argument("--hidden-dim", type=int, default=64)
+    parser.add_argument("--hidden-dim", type=int, default=128)
     parser.add_argument("--dropout", type=float, default=0.3)
     parser.add_argument("--fanouts", type=int, nargs=2, default=[25, 10])
     parser.add_argument("--eval-fanouts", type=int, nargs=2, default=[25, 10])
@@ -811,7 +809,6 @@ def parse_args() -> argparse.Namespace:
         "--class-weight-gamma",
         type=float,
         default=0.25,
-        help="类别权重指数；0 为普通交叉熵，1 为完整反频率加权",
     )
     parser.add_argument("--epochs", type=int, default=50)
     parser.add_argument("--patience", type=int, default=15)
@@ -821,7 +818,7 @@ def parse_args() -> argparse.Namespace:
         "--device",
         type=str,
         default="cuda",
-        help="cpu、cuda 或 cuda:0（默认：cuda）",
+        help="cpu、cuda 或 cuda:0",
     )
     return parser.parse_args()
 
